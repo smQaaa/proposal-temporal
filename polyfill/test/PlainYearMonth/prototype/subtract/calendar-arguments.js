@@ -19,7 +19,7 @@ class CustomCalendar extends Temporal.Calendar {
   yearMonthFromFields(...args) {
     assert.sameValue(args.length, 2, "args.length");
     assert.sameValue(typeof args[0], "object", "args[0]");
-    assert.sameValue(args[1], options, "args[1]");
+    assert.notSameValue(args[1], options, "args[1]");
     return super.yearMonthFromFields(...args);
   }
 }

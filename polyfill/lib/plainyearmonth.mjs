@@ -107,10 +107,13 @@ export class PlainYearMonth {
     const sign = ES.DurationSign(years, months, weeks, days, 0, 0, 0, 0, 0, 0);
     const day = sign < 0 ? ES.CalendarDaysInMonth(calendar, this) : 1;
     const startDate = ES.DateFromFields(calendar, { ...fields, day });
-    const addedDate = ES.CalendarDateAdd(calendar, startDate, { ...duration, days }, options);
+    const overflow = ES.ToTemporalOverflow(options);
+    let optionsCopy = { overflow };
+    const addedDate = ES.CalendarDateAdd(calendar, startDate, { ...duration, days }, optionsCopy);
     const addedDateFields = ES.ToTemporalYearMonthFields(addedDate, fieldNames);
 
-    return ES.YearMonthFromFields(calendar, addedDateFields, options);
+    optionsCopy = { overflow };
+    return ES.YearMonthFromFields(calendar, addedDateFields, optionsCopy);
   }
   subtract(temporalDurationLike, options = undefined) {
     if (!ES.IsTemporalYearMonth(this)) throw new TypeError('invalid receiver');
@@ -138,10 +141,13 @@ export class PlainYearMonth {
     const sign = ES.DurationSign(years, months, weeks, days, 0, 0, 0, 0, 0, 0);
     const day = sign < 0 ? ES.CalendarDaysInMonth(calendar, this) : 1;
     const startDate = ES.DateFromFields(calendar, { ...fields, day });
-    const addedDate = ES.CalendarDateAdd(calendar, startDate, { ...duration, days }, options);
+    const overflow = ES.ToTemporalOverflow(options);
+    let optionsCopy = { overflow };
+    const addedDate = ES.CalendarDateAdd(calendar, startDate, { ...duration, days }, optionsCopy);
     const addedDateFields = ES.ToTemporalYearMonthFields(addedDate, fieldNames);
 
-    return ES.YearMonthFromFields(calendar, addedDateFields, options);
+    optionsCopy = { overflow };
+    return ES.YearMonthFromFields(calendar, addedDateFields, optionsCopy);
   }
   until(other, options = undefined) {
     if (!ES.IsTemporalYearMonth(this)) throw new TypeError('invalid receiver');
